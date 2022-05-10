@@ -1,0 +1,12 @@
+[default]
+DEBUG = false
+EXTENSIONS = [
+    "app.controllers:init_app",
+]
+
+[development]
+DEBUG = true
+
+
+[production]
+
