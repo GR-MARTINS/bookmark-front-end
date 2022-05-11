@@ -3,7 +3,7 @@ from wtforms import (
     EmailField,
     PasswordField,
     SubmitField,
-    BooleanField
+    BooleanField,
 )
 from wtforms.validators import (
     DataRequired,
@@ -42,3 +42,9 @@ class Login(FlaskForm):
         "Password", validators=[DataRequired()]
     )
     remember = BooleanField("Remember-me")
+
+
+class Bookmark(FlaskForm):
+    url = StringField("URL", validators=[DataRequired()])
+    body = StringField("Description", validators=[DataRequired()])
+    submit = SubmitField("Save")
