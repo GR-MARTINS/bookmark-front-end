@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% block content %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4 top-page-text">
+          <h1 class="text-center">Bookmark</h1>
+        </div>
+      </div><!-- row -->
+      <div class="row">
+        <div class="wrap-login col-md-4 col-md-offset-4">
+          <h2 style="margin-bottom: 30px;">Register</h2>
+          <form>
+            {{ form.csrf_token }}
+            <div class="form-group">
+              {{ form.username.label(class="control-label") }}
+              {{ form.username(class="form-control", placeholder="Your user name here") }}
+            </div>
+            <div class="form-group">
+              {{ form.email.label(class="control-label") }}
+              {{ form.email(class="form-control", placeholder="Your email here") }}
+            </div>
+            <div class="form-group">
+              {{ form.password.label(class="control-label") }}
+              {{ form.password(class="form-control", placeholder="Your password  here") }}
+            </div>
+            <div class="form-group">
+              {{ form.confirm_password.label(class="control-label") }}
+              {{ form.confirm_password(class="form-control", placeholder="Repeat your password here") }}
+            </div>
+            <div class="form-group">
+              {{ form.submit(class="submit btn btn-primary") }}
+            </div>
+          </form>
+        </div><!-- wrap-login -->
+      </div><!-- row -->
+    </div><!-- container -->
+{% endblock %}
+
+
+
+
