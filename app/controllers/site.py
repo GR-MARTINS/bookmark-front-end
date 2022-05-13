@@ -2,14 +2,15 @@ from flask import (
     Blueprint,
     render_template
 )
-from app.forms import Login, Register
+from app.forms import Login, Register, Bookmark
 
 site = Blueprint("site", __name__)
 
 
 @site.route('/')
 def index():
-    return render_template("index.html")
+    form = Bookmark()
+    return render_template("home.html", form=form)
 
 
 @site.route('/login')
