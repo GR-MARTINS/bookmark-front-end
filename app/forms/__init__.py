@@ -4,6 +4,7 @@ from wtforms import (
     PasswordField,
     SubmitField,
     BooleanField,
+    SearchField
 )
 from wtforms.validators import (
     DataRequired,
@@ -15,7 +16,7 @@ from flask_wtf import FlaskForm
 
 class Register(FlaskForm):
     username = StringField(
-        "Password", validators=[DataRequired()]
+        "Username", validators=[DataRequired()]
     )
 
     email = EmailField(
@@ -44,7 +45,7 @@ class Login(FlaskForm):
     remember = BooleanField("Remember-me")
 
 
-class Bookmark(FlaskForm):
+class CreateBookmarkForm(FlaskForm):
     url = StringField("URL", validators=[DataRequired()])
     body = StringField("Description", validators=[DataRequired()])
     submit = SubmitField("Save")
