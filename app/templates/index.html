@@ -33,23 +33,45 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{ url_for('site.index') }}">Bookmark</a>
+          <a class="navbar-brand" href="{{ url_for('site.index') }}" style="color: #333;">Bookmark</h1></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="#">What is Bookmark?</a></li></a></li>
-            <li><a href="#">Functions</a></li>
+            <li><a href="#" style="color: #333;">What is Bookmark?</a></li></a></li>
+            <li><a href="#" style="color: #333;">Functions</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a id="sign-in" href="{{ url_for( 'site.login' ) }}">Sign In</a></li>
-            <li><a id="sign-up" href="{{ url_for( 'site.register' ) }}">Sign Up</a></li>  
+            <li><a id="sign-in" href="{{ url_for( 'site.login' ) }}" style="color: #333;">Sign In</a></li>
+            <li><a id="sign-up" href="{{ url_for( 'site.register' ) }}" style="color: #333;">Sign Up</a></li>  
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
-    {% block content %}{% endblock %}
+
+    
+    {% block content %}
+      {% if token %}
+        <div class="top-page-bookmark">
+          <h1>Create a bookmark</h1>
+          <p>Insert the requested informations and click on save button</p>
+          <form>
+            <fieldset id="form">
+                {{ create_form.url.label() }}
+                {{ create_form.url() }}
+                {{ create_form.body.label() }}
+                {{ create_form.body() }}
+            </fieldset>
+            <div id="form-submit">
+              {{ create_form.submit(class="btn btn-primary btn-sm btn-size") }}
+            </div>
+          </form>
+        </div>
+      {% else %}
+      {% endif %}
+    {% endblock %}
+    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
