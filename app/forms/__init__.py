@@ -52,5 +52,5 @@ class CreateBookmarkForm(FlaskForm):
 
 
 class SearchBookmarkForm(FlaskForm):
-    search = StringField("Search", validators=[DataRequired()])
+    search = StringField("Search Bookmark", validators=[DataRequired()])
     submit = SubmitField("Search")

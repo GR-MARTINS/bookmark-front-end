@@ -57,7 +57,7 @@
           <h1>Create a bookmark</h1>
           <p>Insert the requested informations and click on save button</p>
           <form>
-            <fieldset id="form">
+            <fieldset id="create-form">
                 {{ create_form.url.label() }}
                 {{ create_form.url() }}
                 {{ create_form.body.label() }}
@@ -66,6 +66,13 @@
             <div id="form-submit">
               {{ create_form.submit(class="btn btn-primary btn-sm btn-size") }}
             </div>
+          </form>
+        </div>
+        <div class="content">
+          <form id="search-form-div">
+            {{ search_form.search.label() }}
+            {{ search_form.search(placeholder="search: input a id or description to search") }}
+            {{ search_form.submit(class="btn btn-primary btn-sm btn-size") }}
           </form>
         </div>
       {% else %}
