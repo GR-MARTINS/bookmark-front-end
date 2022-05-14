@@ -51,6 +51,6 @@ class CreateBookmarkForm(FlaskForm):
     submit = SubmitField("Save")
 
 
-class SearchBookmark(FlaskForm):
+class SearchBookmarkForm(FlaskForm):
     search = StringField("Search", validators=[DataRequired()])
     submit = SubmitField("Search")

@@ -5,7 +5,8 @@ from flask import (
 from app.forms import (
     LoginForm,
     RegisterForm,
-    CreateBookmarkForm
+    CreateBookmarkForm,
+    SearchBookmarkForm
 )
 
 site = Blueprint("site", __name__)
@@ -16,9 +17,11 @@ def index():
     token = "a"
     if token:
         create_form = CreateBookmarkForm()
+        search_form = SearchBookmarkForm()
         return render_template(
             "index.html",
             create_form=create_form,
+            search_form=search_form,
             token=token
         )
 
