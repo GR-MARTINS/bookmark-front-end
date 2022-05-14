@@ -14,7 +14,7 @@ from wtforms.validators import (
 from flask_wtf import FlaskForm
 
 
-class Register(FlaskForm):
+class RegisterForm(FlaskForm):
     username = StringField(
         "Username", validators=[DataRequired()]
     )
@@ -35,7 +35,7 @@ class Register(FlaskForm):
     submit = SubmitField('Submit')
 
 
-class Login(FlaskForm):
+class LoginForm(FlaskForm):
     email = EmailField(
         "Email", validators=[DataRequired(), Email()]
     )

@@ -3,8 +3,8 @@ from flask import (
     render_template,
 )
 from app.forms import (
-    Login,
-    Register,
+    LoginForm,
+    RegisterForm,
     CreateBookmarkForm
 )
 
@@ -28,11 +28,11 @@ def index():
 
 @site.route("/login", methods=['GET', 'POST'])
 def login():
-    form = Login()
+    form = LoginForm()
     return render_template("login.html", form=form, title="Login")
 
 
 @site.route('/register')
 def register():
-    form = Register()
+    form = RegisterForm()
     return render_template("register.html", form=form, title="Register")
