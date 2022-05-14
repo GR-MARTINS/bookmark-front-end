@@ -49,3 +49,8 @@ class CreateBookmarkForm(FlaskForm):
     url = StringField("URL", validators=[DataRequired()])
     body = StringField("Description", validators=[DataRequired()])
     submit = SubmitField("Save")
+
+
+class SearchBookmark(FlaskForm):
+    search = StringField("Search", validators=[DataRequired()])
+    submit = SubmitField("Search")
