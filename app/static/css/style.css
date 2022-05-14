@@ -31,7 +31,8 @@ body{
 }
 
 .top-page-text{
-	margin-top: 30px;
+	margin-top: 0px;
+	padding: 0;
 }
 
 .content{
@@ -39,11 +40,20 @@ body{
 	margin: 0 15%;
 }
 
+#table{
+	background-color: white;
+	margin-top: 10px;
+	border: solid 1px #DCDCDC;
+	border-radius: 10px;
+
+
+}
 
 .top-page-bookmark{
 	background-color: white;
 	border: solid 1px #DCDCDC;
-	border-radius: 10px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
     font-family: sans-serif;
     margin-left: 15%;
     margin-top: 0;
@@ -117,6 +127,7 @@ body{
 	    margin-right: 2%;  
 	}
 	.content{
-		margin: 0 2%;
+		margin: 0 2% 0 2%;
 	}
+
 }
