@@ -21,7 +21,6 @@
       <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
     <![endif]-->
-
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -36,7 +35,6 @@
           </button>
           <a class="navbar-brand" href="{{ url_for('site.index') }}" style="color: #333;">Bookmark</h1></a>
         </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
@@ -64,7 +62,7 @@
             {% endif %}
           {% endwith %}
         </div>
-        
+
         <div class="top-page-bookmark">
           <h1>Create a bookmark</h1>
           <p>Insert the requested informations and click on save button</p>
@@ -83,6 +81,10 @@
         </div>
 
         <div class="content">
+          <h1 id="table-title">Bookmark list</h1>  
+        </div>
+
+        <div class="content">
           <form form method="POST" action="" id="search-form-div">
             {{ search_form.csrf_token }}
             {{ search_form.search.label() }}
@@ -91,15 +93,11 @@
           </form>
         </div>
 
-        <div class="content">
-          <h1 id="table-title">Bookmarks list</h1>  
-        </div>
-        
         <div class="table-responsive content">
           <table class="table table-hover table-bordered table-striped" id="table">
             <thead>
               <tr>
-                <th>#</th>
+                <th>ID</th>
                 <th>Description</th>
                 <th>URL</th>
                 <th>Clicks</th>
@@ -109,26 +107,28 @@
             </thead>
 
             <tbody>
-              {% for item in bookmarks["data"] %}
+              {% if response_get_one %}
                 <tr>
-                  <th>{{item["id"]}}</th>
-                  <td>{{ item["body"] }}</td>
-                  <td><a href="http://127.0.0.1:5000/{{ item['short_url'] }}">{{ "127.0.0.1:5000/"+item["short_url"] }}</a></td>
-                  <td>{{ item["visit"] }}</td>
-                  <td>{{ item["create_at"]}}</td>
-                  <td>{{ item["updated_at"]}}</td>
+                  <th>{{response_get_one["id"]}}</th>
+                  <td>{{ response_get_one["body"] }}</td>
+                  <td><a href="http://127.0.0.1:5000/{{ response_get_one['short_url'] }}">{{ "127.0.0.1:5000/"+response_get_one["short_url"] }}</a></td>
+                  <td>{{ response_get_one["visit"] }}</td>
+                  <td>{{ response_get_one["create_at"]}}</td>
+                  <td>{{ response_get_one["updated_at"]}}</td>
                 </tr>
-              {% endfor %}
+              {% else %}
+                {% for item in response_get_all["data"] %}
+                  <tr>
+                    <th>{{item["id"]}}</th>
+                    <td>{{ item["body"] }}</td>
+                    <td><a href="http://127.0.0.1:5000/{{ item['short_url'] }}">{{ "127.0.0.1:5000/"+item["short_url"] }}</a></td>
+                    <td>{{ item["visit"] }}</td>
+                    <td>{{ item["create_at"]}}</td>
+                    <td>{{ item["updated_at"]}}</td>
+                  </tr>
+                {% endfor %}
+              {% endif %}
             </tbody>
-
-            <tfoot>
-              <th>#</th>
-              <th>Description</th>
-              <th>URL</th>
-              <th>Clicks</th>
-              <th>Creat at</th>
-              <th>Update at</th>
-            </tfoot>
           </table>
         </div>
 
@@ -136,15 +136,17 @@
           
           <nav aria-label="...">
             <ul class="pager">
-              {% if bookmarks["meta"]["has_prev"] and bookmarks["meta"]["has_next"] %}
-                <li><a  href="{{ url_for('site.index', page=(page-1)) }}"><<</a></li>
-                <li><a href="{{ url_for('site.index', page=(page+1)) }}">>></a></li>
-              {% elif bookmarks["meta"]["has_prev"] and not bookmarks["meta"]["has_next"] %}
-                <li><a href="{{ url_for('site.index', page=(page-1)) }}"><<</a></li>
-                <li><a href="">>></a></li>
-              {% else %}
-                <li><a href=""><<</a></li>
-                <li><a href="{{ url_for('site.index', page=(page+1)) }}">>></a></li>
+              {% if response_get_all %}
+                {% if response_get_all["meta"]["has_prev"] and response_get_all["meta"]["has_next"] %}
+                  <li><a  href="{{ url_for('site.index', page=(page-1)) }}"><<</a></li>
+                  <li><a href="{{ url_for('site.index', page=(page+1)) }}">>></a></li>
+                {% elif response_get_all["meta"]["has_prev"] and not response_get_all["meta"]["has_next"] %}
+                  <li><a href="{{ url_for('site.index', page=(page-1)) }}"><<</a></li>
+                  <li><a href="">>></a></li>
+                {% else %}
+                  <li><a href=""><<</a></li>
+                  <li><a href="{{ url_for('site.index', page=(page+1)) }}">>></a></li>
+                {% endif %}
               {% endif %}
               
             </ul>
