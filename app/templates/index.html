@@ -53,6 +53,18 @@
     
     {% block content %}
       {% if token %}
+        <div class=content>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+        
         <div class="top-page-bookmark">
           <h1>Create a bookmark</h1>
           <p>Insert the requested informations and click on save button</p>
