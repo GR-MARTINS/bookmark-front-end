@@ -56,7 +56,8 @@
         <div class="top-page-bookmark">
           <h1>Create a bookmark</h1>
           <p>Insert the requested informations and click on save button</p>
-          <form>
+          <form method="POST" action="">
+            {{ create_form.csrf_token }}
             <fieldset id="create-form">
                 {{ create_form.url.label() }}
                 {{ create_form.url() }}
@@ -70,7 +71,8 @@
         </div>
 
         <div class="content">
-          <form id="search-form-div">
+          <form form method="POST" action="" id="search-form-div">
+            {{ search_form.csrf_token }}
             {{ search_form.search.label() }}
             {{ search_form.search(placeholder="search: input a id or description to search") }}
             {{ search_form.submit(class="btn btn-primary btn-sm btn-size") }}
@@ -125,15 +127,12 @@
               {% if bookmarks["meta"]["has_prev"] and bookmarks["meta"]["has_next"] %}
                 <li><a  href="{{ url_for('site.index', page=(page-1)) }}"><<</a></li>
                 <li><a href="{{ url_for('site.index', page=(page+1)) }}">>></a></li>
-                {{print("###################\nEstou aqui 1\n###################")}}
               {% elif bookmarks["meta"]["has_prev"] and not bookmarks["meta"]["has_next"] %}
                 <li><a href="{{ url_for('site.index', page=(page-1)) }}"><<</a></li>
-                <li><a href="#">>></a></li>
-                {{print("###################\nEstou aqui 2\n###################")}}
+                <li><a href="">>></a></li>
               {% else %}
-                <li><a href="#"><<</a></li>
+                <li><a href=""><<</a></li>
                 <li><a href="{{ url_for('site.index', page=(page+1)) }}">>></a></li>
-                {{print("###################\nEstou aqui 3\n###################")}}
               {% endif %}
               
             </ul>

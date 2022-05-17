@@ -14,18 +14,27 @@ import requests
 
 site = Blueprint("site", __name__)
 
-@site.route("/<page>")
-@site.route("/")
+@site.route("/<int:page>", methods=["GET", "POST"])
+@site.route("/", methods=["GET", "POST"])
 def index(page=1):
     token = "a"
+    create_form = CreateBookmarkForm()
+    search_form = SearchBookmarkForm()
     if token:
-        create_form = CreateBookmarkForm()
-        search_form = SearchBookmarkForm()
-        headers = {"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1MjY1MzQwNiwianRpIjoiYmEyNzg4N2MtNTgxMi00NGQ5LWEwMmEtMzAwYjNjYWZkOTQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjUyNjUzNDA2LCJleHAiOjI2NTI2NTM0MDV9._Py4wKEWiet0xng1SIKAhMHPcd9h4WCcTyAbJlRd0rM"}
+        url = "http://127.0.0.1:5000/api/v1/bookmarks"
+        headers = {"Authorization": "Bearer "}
         bookmarks = requests.get(
-            "http://127.0.0.1:5000/api/v1/bookmarks",
+            url,
             headers=headers,
             params={"page": page}).json()
+        if create_form.validate_on_submit():
+            bookmark = {
+                "body": create_form.body.data,
+                "url": create_form.url.data
+            }
+            requests.post(url + "/", headers=headers, json=bookmark)
+        if search_form.validate_on_submit():
+            ...
 
         return render_template(
             "index.html",
@@ -33,7 +42,7 @@ def index(page=1):
             search_form=search_form,
             token=token,
             bookmarks=bookmarks,
-            page=int(page),
+            page=page,
             redirect=redirect,
             print=print
         )
