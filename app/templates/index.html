@@ -103,6 +103,7 @@
                 <th>Clicks</th>
                 <th>Creat at</th>
                 <th>Update at</th>
+                <th></th>
             </tr>
             </thead>
 
@@ -115,6 +116,8 @@
                   <td>{{ response_get_one["visit"] }}</td>
                   <td>{{ response_get_one["create_at"]}}</td>
                   <td>{{ response_get_one["updated_at"]}}</td>
+                  <td>{{ response_get_one["updated_at"]}}</td>
+                  <td><a href="{{ url_for('site.options', response=response_get_one) }}"></a>More Options</td>
                 </tr>
               {% else %}
                 {% for item in response_get_all["data"] %}
@@ -125,6 +128,7 @@
                     <td>{{ item["visit"] }}</td>
                     <td>{{ item["create_at"]}}</td>
                     <td>{{ item["updated_at"]}}</td>
+                    <td><a href="{{ url_for('site.options', response=item) }}">More Options</a></td>
                   </tr>
                 {% endfor %}
               {% endif %}
