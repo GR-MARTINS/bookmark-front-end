@@ -1,8 +1,9 @@
 from flask import (
     Blueprint,
     render_template,
-    redirect,
-    flash
+    flash,
+    request,
+    jsonify
 )
 from app.forms import (
     LoginForm,
@@ -15,6 +16,19 @@ import requests
 
 site = Blueprint("site", __name__)
 
+
+@site.route("/login", methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    return render_template("login.html", form=form, title="Login")
+
+
+@site.route('/register')
+def register():
+    form = RegisterForm()
+    return render_template("register.html", form=form, title="Register")
+
+
 @site.route("/<int:page>", methods=["GET", "POST"])
 @site.route("/", methods=["GET", "POST"])
 def index(page=1):
@@ -23,7 +37,7 @@ def index(page=1):
     search_form = SearchBookmarkForm()
     if token:
         url = "http://127.0.0.1:5000/api/v1/bookmarks"
-        headers = {"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mjc5MDAyMywianRpIjoiMjEwZWI1Y2QtM2E4Ni00Yzg2LTk5MTQtOTI2MDk3OGJhNzZmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjUyNzkwMDIzLCJleHAiOjE2NTI4NzY0MjN9.kK2TlVsqyOP4aCS3jZESaXcc2a--ELG5MwAwi9hlQqA"}
+        headers = {"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1MzA0MjY5NywianRpIjoiNTQyODMzZWMtOGYwNy00ZGQ5LWE1NTgtNGI1NTFiMGY4N2FjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjUzMDQyNjk3LCJleHAiOjE2NTMxMjkwOTd9.nRdpYibbS5jabjk2RycDF2sXs-iCgjBDsW0M2bJrzeY"}
         response_get_all = requests.get(
             url,
             headers=headers,
@@ -74,13 +88,9 @@ def index(page=1):
         return render_template("index.html")
 
 
-@site.route("/login", methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    return render_template("login.html", form=form, title="Login")
-
-
-@site.route('/register')
-def register():
-    form = RegisterForm()
-    return render_template("register.html", form=form, title="Register")
+@site.route('/options', methods=["GET", "POST", "DELETE"])
+def options():
+    response = request.args
+    if response:
+        return jsonify(response)
+    return render_template('options.html')
