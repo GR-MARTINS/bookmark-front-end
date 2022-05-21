@@ -117,7 +117,7 @@
                   <td>{{ response_get_one["create_at"]}}</td>
                   <td>{{ response_get_one["updated_at"]}}</td>
                   <td>{{ response_get_one["updated_at"]}}</td>
-                  <td><a href="{{ url_for('site.options', response=response_get_one) }}"></a>More Options</td>
+                  <td><a href="{{ url_for('site.options', response=response_get_one) }}">More Options</a></td>
                 </tr>
               {% else %}
                 {% for item in response_get_all["data"] %}

@@ -12,7 +12,7 @@ from app.forms import (
     SearchBookmarkForm
 )
 
-import requests
+import requests, json
 
 site = Blueprint("site", __name__)
 
@@ -37,7 +37,7 @@ def index(page=1):
     search_form = SearchBookmarkForm()
     if token:
         url = "http://127.0.0.1:5000/api/v1/bookmarks"
-        headers = {"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1MzA0MjY5NywianRpIjoiNTQyODMzZWMtOGYwNy00ZGQ5LWE1NTgtNGI1NTFiMGY4N2FjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjUzMDQyNjk3LCJleHAiOjE2NTMxMjkwOTd9.nRdpYibbS5jabjk2RycDF2sXs-iCgjBDsW0M2bJrzeY"}
+        headers = {"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1MzE0MTA3OCwianRpIjoiMTA2Yjk3N2EtZTI1Yi00MjYwLWJiMWMtNDVjMjFhYzljY2EwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjUzMTQxMDc4LCJleHAiOjE2NTMyMjc0Nzh9.vHWqUfPMZjeNHSf0XtcwiUhB12w2AmEaToPuKWUNg9Y"}
         response_get_all = requests.get(
             url,
             headers=headers,
@@ -90,7 +90,10 @@ def index(page=1):
 
 @site.route('/options', methods=["GET", "POST", "DELETE"])
 def options():
-    response = request.args
+    response = request.args["response"].replace("'", '"')
+    id = json.loads(response)["id"]
+    url = f"http://127.0.0.1:5000/api/v1/bookmarks/stats/{id}"
+    response = requests.get(url).json()
     if response:
         return jsonify(response)
     return render_template('options.html')
