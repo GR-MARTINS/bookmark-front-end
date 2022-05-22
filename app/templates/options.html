@@ -30,3 +30,139 @@
 <input type="hidden"  id="monthly_label" value="{{ data['monthly_stats']['label'] }}">
 {% endblock content %}
 
+{% block script %}
+<script>
+var labels = document.getElementById('last_7_days_label').value.replaceAll("'","").replaceAll("[","").replaceAll("]","").split(",").reverse()
+var data = {
+  labels: labels,
+  datasets: [{
+    data: document.getElementById('last_7_days_data').value.replaceAll("'","").replaceAll("[","").replaceAll("]","").split(",").map(Number).reverse(),
+    borderColor: 'rgb(51,122,183)',
+    backgroundColor: 'rgba(155,208,246,0.5)',
+    borderWidth: 2,
+    borderRadius: 5,
+    borderSkipped: false,
+  }]
+};
+
+var config = {
+  type: 'bar',
+  data: data,
+  options: {
+  	plugins: {
+      legend: {
+      	display: false,
+      },
+	  title: {
+        display: true,
+        text: 'Clicks in the last 7 days'
+      }
+    }  
+  }
+};
+
+var myChart = new Chart(
+    document.getElementById('last_7_days_chart'),
+    config
+  );
+
+labels = document.getElementById('last_30_days_label').value.replaceAll("'","").replaceAll("[","").replaceAll("]","").split(",").reverse()
+data = {
+  labels: labels,
+  datasets: [{
+    data: document.getElementById('last_30_days_data').value.replaceAll("'","").replaceAll("[","").replaceAll("]","").split(",").map(Number).reverse(),
+    borderColor: 'rgb(51,122,183)',
+    backgroundColor: 'rgba(155,208,246,0.5)',
+    borderWidth: 2,
+    borderRadius: 5,
+    borderSkipped: false,
+  }]
+};
+
+config = {
+  type: 'bar',
+  data: data,
+  options: {
+  	plugins: {
+      legend: {
+      	display: false,
+      },
+	  title: {
+        display: true,
+        text: 'Clicks in the last 30 days'
+      }
+    }  
+  }
+};
+
+myChart = new Chart(
+    document.getElementById('last_30_days_chart'),
+    config
+  );
+
+
+labels = document.getElementById('weeks_label').value.replaceAll("'","").replaceAll("[","").replaceAll("]","").split(",").reverse()
+data = {
+  labels: labels,
+  datasets: [{
+    backgroundColor: 'rgb(155,208,246)',
+    borderColor: 'rgb(51,122,183)',
+    data: document.getElementById('weeks_data').value.replaceAll("'","").replaceAll("[","").replaceAll("]","").split(",").map(Number).reverse(),
+    tension: 0.1
+  }]
+};
+
+config = {
+  type: 'line',
+  data: data,
+  options: {
+  	plugins: {
+      legend: {
+      	display: false,
+      },
+	  title: {
+        display: true,
+        text: 'Clicks in the last 12 weeks'
+      }
+    }  
+  }
+};
+
+myChart = new Chart(
+    document.getElementById('weeks_chart'),
+    config
+  );
+
+labels = document.getElementById('monthly_label').value.replaceAll("'","").replaceAll("[","").replaceAll("]","").split(",").reverse()
+data = {
+  labels: labels,
+  datasets: [{
+    backgroundColor: 'rgb(155,208,246)',
+    borderColor: 'rgb(51,122,183)',
+    data: document.getElementById('monthly_data').value.replaceAll("'","").replaceAll("[","").replaceAll("]","").split(",").map(Number).reverse(),
+    tension: 0.1
+  }]
+};
+
+config = {
+  type: 'line',
+  data: data,
+  options: {
+  	plugins: {
+      legend: {
+      	display: false,
+      },
+	  title: {
+        display: true,
+        text: 'Clicks in the last 12 months'
+      }
+    }  
+  }
+};
+
+myChart = new Chart(
+    document.getElementById('months_chart'),
+    config
+  );
+</script>
+{% endblock script %}
