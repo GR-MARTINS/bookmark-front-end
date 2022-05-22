@@ -8,7 +8,7 @@ from flask import (
 from app.forms import (
     LoginForm,
     RegisterForm,
-    CreateBookmarkForm,
+    BookmarkForm,
     SearchBookmarkForm
 )
 
@@ -33,11 +33,11 @@ def register():
 @site.route("/", methods=["GET", "POST"])
 def index(page=1):
     token = "a"
-    create_form = CreateBookmarkForm()
+    create_form = BookmarkForm()
     search_form = SearchBookmarkForm()
     if token:
         url = "http://127.0.0.1:5000/api/v1/bookmarks"
-        headers = {"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1MzE0MTA3OCwianRpIjoiMTA2Yjk3N2EtZTI1Yi00MjYwLWJiMWMtNDVjMjFhYzljY2EwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjUzMTQxMDc4LCJleHAiOjE2NTMyMjc0Nzh9.vHWqUfPMZjeNHSf0XtcwiUhB12w2AmEaToPuKWUNg9Y"}
+        headers = {"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1MzIzMTkzOSwianRpIjoiYmZjY2JhOWUtMmE5ZS00MDIwLTllN2ItMWM3MGYxODQ0MzU0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjUzMjMxOTM5LCJleHAiOjE2NTMzMTgzMzl9.7XPUTyrxr-2QYQPDydNBi0vU1MqYp_vJzHB5rLRF6-4"}
         response_get_all = requests.get(
             url,
             headers=headers,
@@ -90,10 +90,9 @@ def index(page=1):
 
 @site.route('/options', methods=["GET", "POST", "DELETE"])
 def options():
+    form = BookmarkForm()
     response = request.args["response"].replace("'", '"')
     id = json.loads(response)["id"]
     url = f"http://127.0.0.1:5000/api/v1/bookmarks/stats/{id}"
     response = requests.get(url).json()
-    if response:
-        return jsonify(response)
-    return render_template('options.html')
+    return render_template('options.html', data=response, form=form)
