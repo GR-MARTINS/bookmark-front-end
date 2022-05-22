@@ -45,7 +45,7 @@ class LoginForm(FlaskForm):
     remember = BooleanField("Remember-me")
 
 
-class CreateBookmarkForm(FlaskForm):
+class BookmarkForm(FlaskForm):
     url = StringField("URL", validators=[DataRequired()])
     body = StringField("Description", validators=[DataRequired()])
     submit = SubmitField("Save")
