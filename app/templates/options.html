@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="top-page-bookmark">
+  <h1>Update Bookmark</h1>
+  <p>Insert the requested informations and click on save button</p>
+  <form method="POST" action="">
+    {{ form.csrf_token }}
+    <fieldset id="create-form">
+        {{ form.url.label() }}
+        {{ form.url() }}
+        {{ form.body.label() }}
+        {{ form.body() }}
+    </fieldset>
+    <div id="form-submit">
+      {{ form.submit(class="btn btn-primary btn-sm btn-size") }}
+    </div>
+  </form>
+</div>
+<canvas id="last_7_days_chart" class="content"></canvas>
+<canvas id="last_30_days_chart" class="content"></canvas>
+<canvas id="weeks_chart" class="content"></canvas>
+<canvas id="months_chart" class="content"></canvas>
+<input type="hidden"  id="last_30_days_data" value="{{ data['last_30_days']['data'] }}">
+<input type="hidden"  id="last_30_days_label" value="{{ data['last_30_days']['label'] }}">
+<input type="hidden"  id="last_7_days_data" value="{{ data['last_7_days']['data'] }}">
+<input type="hidden"  id="last_7_days_label" value="{{ data['last_7_days']['label'] }}">
+<input type="hidden"  id="weeks_data" value="{{ data['weekly_stats']['data'] }}">
+<input type="hidden"  id="weeks_label" value="{{ data['weekly_stats']['label'] }}">
+<input type="hidden"  id="monthly_data" value="{{ data['monthly_stats']['data'] }}">
+<input type="hidden"  id="monthly_label" value="{{ data['monthly_stats']['label'] }}">
+{% endblock content %}
+
