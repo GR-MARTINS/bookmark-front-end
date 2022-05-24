@@ -97,6 +97,38 @@ body{
 	border: solid 1px #DCDCDC;
 }
 
+#canvas{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	background-color: white;
+	border: solid 1px #ccc;
+	margin-top: 10px;
+	padding: 10px;
+	justify-content: space-between;
+}
+
+.seven-days{
+	display: flex;
+	width: 33%;
+}
+.thirty-days{
+	display: flex;
+	width: 100%;
+}
+    
+.weeks{
+	display: flex;
+	width: 33%;
+}
+ 
+.months{
+	display: flex;
+	width: 33%;
+}  
+
+<canvas id="last_7_days_chart" width="1516" height="758" style="display: block; box-sizing: border-box; height: 379px; width: 758px;"></canvas>
+
 @media(max-width: 880px){
 	#create-form{
 		display: block;
