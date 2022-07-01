@@ -14,5 +14,5 @@ Bookmark is an url shortener that allows that the users create an account, regis
 * JavaScript
 ### Deploy
 * Heroku
-The aplication will be accessed at bkmk.gq/.
+The aplication will be accessed at www.bkmk.gq
 
